@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pizza Drive-Thru: Arcade Idle Tycoon</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Tailwind CSS CDN para utilidad rápida -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 select-none overflow-hidden">
+
+  <div id="game-container">
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- UI Overlay HUD -->
+    <div id="ui-overlay">
+      <!-- Barra superior de recursos y estado -->
+      <div class="flex items-center justify-between w-full max-w-5xl mx-auto interactive-ui">
+        
+        <!-- Dinero acumulado -->
+        <div class="glass-panel px-5 py-2.5 flex items-center gap-3">
+          <span class="text-2xl">💵</span>
+          <div class="flex flex-col">
+            <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Caja</span>
+            <span id="hud-money" class="text-2xl font-bold text-emerald-400">$0</span>
+          </div>
+        </div>
+
+        <!-- Inventario en la Espalda -->
+        <div class="glass-panel px-5 py-2.5 flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🎒</span>
+            <div class="flex flex-col">
+              <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Carga</span>
+              <span id="hud-capacity" class="text-lg font-bold text-white">0/5</span>
+            </div>
+          </div>
+
+          <div class="h-7 w-[1px] bg-slate-700 mx-1"></div>
+
+          <!-- Trigo en mochila -->
+          <div class="flex items-center gap-1.5" title="Trigo">
+            <span class="text-lg">🌾</span>
+            <span id="hud-wheat" class="font-bold text-amber-300">0</span>
+          </div>
+
+          <!-- Harina en mochila -->
+          <div class="flex items-center gap-1.5" title="Harina">
+            <span class="text-lg">🥡</span>
+            <span id="hud-flour" class="font-bold text-sky-200">0</span>
+          </div>
+
+          <!-- Pizza en mochila -->
+          <div class="flex items-center gap-1.5" title="Pizzas preparadas">
+            <span class="text-lg">🍕</span>
+            <span id="hud-pizza" class="font-bold text-orange-400">0</span>
+          </div>
+        </div>
+
+        <!-- Botones de Utilidad -->
+        <div class="flex items-center gap-2">
+          <button id="mute-btn" class="glass-panel w-11 h-11 flex items-center justify-center text-xl hover:bg-slate-700 transition" title="Activar/Silenciar Sonido">
+            🔊
+          </button>
+        </div>
+      </div>
+
+      <!-- Ayuda flotante de controles en la esquina inferior derecha -->
+      <div class="flex justify-end w-full">
+        <div class="glass-panel px-4 py-2 text-xs text-slate-300 flex items-center gap-3 pointer-events-none opacity-90">
+          <span>⌨️ <b>WASD</b> o <b>Flechas</b> para moverte</span>
+          <span>•</span>
+          <span>🌾 Trigo ➔ 🥡 Harina ➔ 🍕 Horno ➔ 🚗 Sirve en ventanilla</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Joystick virtual dinámico para pantallas táctiles -->
+    <div id="joystick-container">
+      <div id="joystick-knob"></div>
+    </div>
+  </div>
+
+  <!-- Scripts del juego (orden de dependencias) -->
+  <script src="js/engine/Audio.js"></script>
+  <script src="js/engine/Input.js"></script>
+  <script src="js/engine/Camera.js"></script>
+  <script src="js/world/Map.js"></script>
+  <script src="js/entities/Player.js"></script>
+  <script src="js/entities/Stations.js"></script>
+  <script src="js/entities/MoneyPickup.js"></script>
+  <script src="js/entities/DriveThru.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
