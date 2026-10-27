@@ -240,3 +240,4 @@ class UpgradeManager {
 }
 
 window.UpgradeManager = UpgradeManager;
+

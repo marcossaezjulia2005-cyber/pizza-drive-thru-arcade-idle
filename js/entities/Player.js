@@ -251,6 +251,20 @@ class Player {
         ctx.beginPath();
         ctx.arc(0, yOffset - 5.5, 3.5, 0, Math.PI * 2);
         ctx.fill();
+      } else if (item.type === 'tomato') {
+        // Tomate fresco
+        ctx.fillStyle = '#ef4444';
+        ctx.beginPath();
+        ctx.arc(0, yOffset - 5, 5.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#16a34a';
+        ctx.fillRect(-1.5, yOffset - 9, 3, 3);
+      } else if (item.type === 'cheese') {
+        // Cuña de queso
+        ctx.fillStyle = '#facc15';
+        ctx.strokeStyle = '#ca8a04';
+        ctx.lineWidth = 1;
+        this.drawRoundedRect(ctx, -10, yOffset - 8, 20, 8, 2);
       }
     });
 

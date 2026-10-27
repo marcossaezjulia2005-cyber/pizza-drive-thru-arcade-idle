@@ -254,9 +254,17 @@ class DriveThruSystem {
     // Bocina del coche complacido
     if (window.audio) window.audio.playHorn();
 
-    // Suelta de fajos de billetes en la repisa de la ventanilla ($5 por pizza)
-    const rewardPerPizza = 5;
+    // Bonificación triple si es el autobús turístico
+    const multiplier = vehicle.isBus ? 3 : 1;
+    const rewardPerPizza = 5 * multiplier;
     const totalMoney = vehicle.orderCount * rewardPerPizza;
+
+    if (vehicle.isBus && this.game.specialEvents) {
+      this.game.specialEvents.triggerConfetti(960, 440);
+      if (this.game.moneyManager) {
+        this.game.moneyManager.floatingTexts.spawn(940, 410, '🎉 ¡BONUS TRIPLE BUS x3! 🎉', '#facc15');
+      }
+    }
 
     if (moneyManager) {
       moneyManager.spawnCash(955, 440, totalMoney);
