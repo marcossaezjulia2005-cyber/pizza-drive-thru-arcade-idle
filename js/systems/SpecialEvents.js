@@ -303,3 +303,4 @@ class SpecialEventManager {
 }
 
 window.SpecialEventManager = SpecialEventManager;
+

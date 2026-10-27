@@ -159,3 +159,4 @@ class CheeseStation {
 
 window.TomatoPatch = TomatoPatch;
 window.CheeseStation = CheeseStation;
+
