@@ -470,9 +470,9 @@ class Oven {
 
   render(ctx) {
     // 1. Zonas de interaccion en el suelo
-    const ingredientsCount = 🥡 🍅 🧀;
+    const ingredientsCount = `🥡${this.flourInput} 🍅${this.tomatoInput} 🧀${this.cheeseInput}`;
     this.renderZone(ctx, this.inputZone.x, this.inputZone.y, this.inputZone.radius, '📥 Carga', '#38bdf8', ingredientsCount);
-    this.renderZone(ctx, this.outputZone.x, this.outputZone.y, this.outputZone.radius, 🍕 Bandeja, '#f59e0b', ${this.readyPizzas.length}/);
+    this.renderZone(ctx, this.outputZone.x, this.outputZone.y, this.outputZone.radius, `🍕 Bandeja`, "#f59e0b", `${this.readyPizzas.length}/${this.maxPizzas}`);
 
     // 2. Edificio del Horno de Piedra
     ctx.save();

@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Pizza Drive-Thru: Arcade Idle Tycoon</title>
+  <script>
+    window.onerror = function(msg, url, line, col, error) {
+      document.title = 'ERR: ' + msg + ' @ line ' + line + ' of ' + (url ? url.split('/').pop() : '?');
+    };
+  </script>
   <link rel="stylesheet" href="css/styles.css">
   <!-- Tailwind CSS CDN para utilidad rápida -->
   <script src="https://cdn.tailwindcss.com"></script>
