@@ -228,6 +228,48 @@ class UpgradeManager {
         }
       }
     }));
+
+    // 7. Desbloquear Huerto de Tomates 🍅 (Receta Margarita: $12)
+    this.zones.push(new UpgradeZone({
+      id: 'unlock_tomatoes',
+      name: 'Tomates',
+      icon: '🍅',
+      color: '#ef4444',
+      x: 100,
+      y: 470,
+      baseCost: 150,
+      isOneTime: true,
+      maxLevel: 1,
+      onUpgrade: (level, game) => {
+        if (game.tomatoPatch) {
+          game.tomatoPatch.unlocked = true;
+          if (game.moneyManager) {
+            game.moneyManager.floatingTexts.spawn(game.tomatoPatch.x + 40, game.tomatoPatch.y - 20, '¡Huerto Desbloqueado! 🍅 ($12/pizza)', '#ef4444');
+          }
+        }
+      }
+    }));
+
+    // 8. Desbloquear Quesería Artesanal 🧀 (Receta 4 Quesos: $25)
+    this.zones.push(new UpgradeZone({
+      id: 'unlock_cheese',
+      name: 'Quesería',
+      icon: '🧀',
+      color: '#facc15',
+      x: 740,
+      y: 460,
+      baseCost: 250,
+      isOneTime: true,
+      maxLevel: 1,
+      onUpgrade: (level, game) => {
+        if (game.cheeseStation) {
+          game.cheeseStation.unlocked = true;
+          if (game.moneyManager) {
+            game.moneyManager.floatingTexts.spawn(game.cheeseStation.x, game.cheeseStation.y - 25, '¡Quesería Desbloqueada! 🧀 ($25/pizza)', '#facc15');
+          }
+        }
+      }
+    }));
   }
 
   update(dt, player) {

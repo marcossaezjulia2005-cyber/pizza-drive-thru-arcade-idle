@@ -226,6 +226,7 @@ class DriveThruSystem {
         const pizzaItem = player.popItem('pizza');
         if (pizzaItem) {
           headVehicle.deliveredCount++;
+          headVehicle.deliveredValue = (headVehicle.deliveredValue || 0) + (pizzaItem.value || 5);
           this.transferCooldown = 0.22; // Ritmo ágil de entrega
           if (window.audio) window.audio.playPickup(1.3);
 
@@ -256,8 +257,7 @@ class DriveThruSystem {
 
     // Bonificación triple si es el autobús turístico
     const multiplier = vehicle.isBus ? 3 : 1;
-    const rewardPerPizza = 5 * multiplier;
-    const totalMoney = vehicle.orderCount * rewardPerPizza;
+    const totalMoney = (vehicle.deliveredValue || (vehicle.orderCount * 5)) * multiplier;
 
     if (vehicle.isBus && this.game.specialEvents) {
       this.game.specialEvents.triggerConfetti(960, 440);

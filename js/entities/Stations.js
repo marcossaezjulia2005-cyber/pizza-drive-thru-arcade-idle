@@ -344,36 +344,56 @@ class Oven {
     this.x = x;
     this.y = y;
 
-    // Lógica productiva RF-02.3 (1 Harina -> 1 Pizza, 2.0s, Capacidad máx: 10)
+    // Logica productiva RF-02.3 y Recetas Fase 4
     this.cookTime = 2.0;
     this.currentTimer = 0;
     this.flourInput = 0;
-    this.pizzaOutput = 0;
+    this.tomatoInput = 0;
+    this.cheeseInput = 0;
+
+    // Bandeja de pizzas preparadas con valor: { type: 'pizza', value: 5|12|25 }
+    this.readyPizzas = [];
     this.maxPizzas = 10;
 
     this.transferCooldown = 0;
 
-    // Zonas de interacción
-    this.inputZone = { x: x - 48, y: y + 30, radius: 30 };
-    this.outputZone = { x: x + 48, y: y + 30, radius: 30 };
+    // Zonas de interaccion
+    this.inputZone = { x: x - 48, y: y + 30, radius: 34 };
+    this.outputZone = { x: x + 48, y: y + 30, radius: 34 };
 
     this.smokeParticles = [];
   }
 
+  get pizzaOutput() {
+    return this.readyPizzas.length;
+  }
+
   update(dt, player) {
-    const isBaking = this.flourInput > 0 && this.pizzaOutput < this.maxPizzas;
+    const isBaking = this.flourInput > 0 && this.readyPizzas.length < this.maxPizzas;
 
     // Proceso de horneado
     if (isBaking) {
       this.currentTimer += dt;
       if (this.currentTimer >= this.cookTime) {
         this.flourInput--;
-        this.pizzaOutput++;
+        let pizzaValue = 5; // Basica
+
+        // Determinar mejor receta posible
+        if (this.tomatoInput > 0 && this.cheeseInput > 0) {
+          this.tomatoInput--;
+          this.cheeseInput--;
+          pizzaValue = 25; // 4 Quesos
+        } else if (this.tomatoInput > 0) {
+          this.tomatoInput--;
+          pizzaValue = 12; // Margarita
+        }
+
+        this.readyPizzas.push({ type: 'pizza', value: pizzaValue });
         this.currentTimer = 0;
         if (window.audio) window.audio.playDing();
       }
 
-      // Generar partículas de humo/chispas
+      // Generar particulas de humo/chispas
       if (Math.random() < 0.35) {
         this.smokeParticles.push({
           x: this.x + (Math.random() - 0.5) * 20,
@@ -390,11 +410,10 @@ class Oven {
       this.currentTimer = 0;
     }
 
-    // Partículas de humo
+    // Particulas de humo
     for (let i = this.smokeParticles.length - 1; i >= 0; i--) {
       const p = this.smokeParticles[i];
       p.x += p.vx * dt;
-      p.y += p.vy * dt;
       p.radius += dt * 3;
       p.life -= dt;
       if (p.life <= 0) {
@@ -406,14 +425,32 @@ class Oven {
       this.transferCooldown -= dt;
     }
 
-    // Interacción con el jugador
+    // Interaccion con el jugador
     if (this.transferCooldown <= 0) {
-      // 1. Zona de Entrada: Depositar harina
+      // 1. Zona de Entrada: Depositar harina, tomate o queso
       const distInput = Math.hypot(player.x - this.inputZone.x, player.y - this.inputZone.y);
       if (distInput <= this.inputZone.radius) {
-        const item = player.popItem('flour');
-        if (item) {
-          this.flourInput++;
+        let deposited = false;
+
+        const cheese = player.popItem('cheese');
+        if (cheese) {
+          this.cheeseInput++;
+          deposited = true;
+        } else {
+          const tomato = player.popItem('tomato');
+          if (tomato) {
+            this.tomatoInput++;
+            deposited = true;
+          } else {
+            const flour = player.popItem('flour');
+            if (flour) {
+              this.flourInput++;
+              deposited = true;
+            }
+          }
+        }
+
+        if (deposited) {
           this.transferCooldown = 0.15;
           if (window.audio) window.audio.playDeposit();
         }
@@ -422,9 +459,9 @@ class Oven {
       // 2. Zona de Salida: Recoger pizzas calientes listas
       const distOutput = Math.hypot(player.x - this.outputZone.x, player.y - this.outputZone.y);
       if (distOutput <= this.outputZone.radius) {
-        if (this.pizzaOutput > 0 && player.canPickItem()) {
-          this.pizzaOutput--;
-          player.addItem('pizza');
+        if (this.readyPizzas.length > 0 && player.canPickItem()) {
+          const readyItem = this.readyPizzas.pop();
+          player.addItem('pizza', readyItem.value);
           this.transferCooldown = 0.15;
         }
       }
@@ -432,9 +469,10 @@ class Oven {
   }
 
   render(ctx) {
-    // 1. Zonas de interacción en el suelo
-    this.renderZone(ctx, this.inputZone.x, this.inputZone.y, this.inputZone.radius, '📥 Carga Harina', '#38bdf8', this.flourInput);
-    this.renderZone(ctx, this.outputZone.x, this.outputZone.y, this.outputZone.radius, `🍕 Bandeja (${this.pizzaOutput}/${this.maxPizzas})`, '#f59e0b', this.pizzaOutput);
+    // 1. Zonas de interaccion en el suelo
+    const ingredientsCount = 🥡 🍅 🧀;
+    this.renderZone(ctx, this.inputZone.x, this.inputZone.y, this.inputZone.radius, '📥 Carga', '#38bdf8', ingredientsCount);
+    this.renderZone(ctx, this.outputZone.x, this.outputZone.y, this.outputZone.radius, 🍕 Bandeja, '#f59e0b', ${this.readyPizzas.length}/);
 
     // 2. Edificio del Horno de Piedra
     ctx.save();

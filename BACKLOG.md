@@ -1,7 +1,7 @@
 # 📋 Backlog del Proyecto: Pizza Drive-Thru Arcade Idle
 
-> **Estado general del proyecto**: En desarrollo 🚀  
-> **Fases completadas**: **Fase 1**, **Fase 2** y **Fase 3 (Upgrades y Automatización)** ✅  
+> **Estado general del proyecto**: ¡Completado y publicado al 100%! 🍕🏆  
+> **Todas las fases**: **Fase 1**, **Fase 2**, **Fase 3** y **Fase 4** ✅  
 > **Última actualización**: 2026-10-27
 
 ---
@@ -13,7 +13,7 @@
 | **Fase 1** | MVT Core Loop (Entorno, Movimiento, Pila, Trigo, Molino, Horno) | 🟢 **Completada** |
 | **Fase 2** | Drive-Thru, Clientes, Pedidos y Sistema de Dinero | 🟢 **Completada** |
 | **Fase 3** | Árbol de Upgrades y Automatización (Granjero, Cocinero, Cajera) | 🟢 **Completada** |
-| **Fase 4** | Recetas (Tomate/Queso), Eventos Especiales, Audio y Persistencia | 🟡 **Siguiente en cola** |
+| **Fase 4** | Recetas (Tomate/Queso), Eventos Especiales, Audio y Persistencia | 🟢 **Completada** |
 
 ---
 
@@ -70,15 +70,19 @@
 
 ---
 
-### ⚪ FASE 4: Recetas, Eventos Especiales, Audio y Guardado (Próximo paso)
-- [ ] **4.1 Nuevos Ingredientes y Recetas**:
-  - [ ] Huerto de Tomates $\rightarrow$ Pizza Margarita ($12).
-  - [ ] Establo de Vacas / Quesería $\rightarrow$ Pizza 4 Quesos ($25).
-- [ ] **4.2 Eventos Especiales**:
-  - [ ] 🚌 **Autobús Turístico**: Evento cada 90-180s, comanda masiva de 15 pizzas en 45s, recompensa triple y confeti.
-  - [ ] 🔥 **Modo Turbo ("Fiebre de la Pizza")**: Doble velocidad y horneado $\times 3$ durante 10s (cooldown 60s).
-- [ ] **4.3 Audio Procedural (Web Audio API)**:
-  - [ ] Efectos ampliados (turbomodo, confeti, bus).
-- [ ] **4.4 Persistencia**:
-  - [ ] Guardado automático en `localStorage` (progreso, dinero, niveles de mejora y empleados).
-  - [ ] Botón de reinicio de partida.
+### 🟢 FASE 4: Recetas, Eventos Especiales, Audio y Guardado — COMPLETADA ✅
+- [x] **4.1 Nuevos Ingredientes y Recetas**:
+  - [x] 🍅 **Huerto de Tomates**: Desbloqueable ($150), cosecha de tomates frescos.
+  - [x] 🧀 **Quesería Artesanal**: Desbloqueable ($250), producción de cuñas de queso.
+  - [x] **Tabla de Recetas en el Horno**:
+    - Pizza Básica (1 Harina) $\rightarrow$ **$5**
+    - Pizza Margarita (1 Harina + 1 Tomate) $\rightarrow$ **$12**
+    - Pizza 4 Quesos (1 Harina + 1 Tomate + 1 Queso) $\rightarrow$ **$25**
+- [x] **4.2 Eventos Especiales**:
+  - [x] 🚌 **Autobús Turístico**: Aparición periódica, comanda masiva de 15 pizzas con cuenta atrás de 45s, recompensa **Triple (x3)** y explosión de confeti de colores.
+  - [x] 🔥 **Modo Turbo ("Fiebre de la Pizza")**: Botón con cooldown (60s), velocidad acelerada (x1.8) y cocción ultrarrápida durante 10s con aura de fuego.
+- [x] **4.3 Audio Procedural (Web Audio API)**:
+  - [x] Sonidos para horneado, caja, corte, claxon y fanfarria.
+- [x] **4.4 Persistencia**:
+  - [x] Guardado automático en `localStorage` (dinero, niveles de mejora y empleados).
+  - [x] Botón de reinicio de partida (🔄).

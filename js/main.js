@@ -36,6 +36,16 @@ class Game {
     // Sistema de Drive-Thru y coches
     this.driveThru = new DriveThruSystem(this);
 
+    // Nuevos ingredientes (Fase 4)
+    this.tomatoPatch = new TomatoPatch(70, 470, 2, 4);
+    this.cheeseStation = new CheeseStation(640, 160);
+
+    // Eventos Especiales (Autobus y Modo Turbo)
+    this.specialEvents = new SpecialEventManager(this);
+
+    // Sistema de Persistencia (localStorage)
+    this.saveSystem = new SaveSystem(this);
+
     // Estado económico y progreso
     this.money = 0;
 
@@ -55,6 +65,9 @@ class Game {
         muteBtn.textContent = isMuted ? '🔇' : '🔊';
       });
     }
+
+    // Cargar partida guardada si existe
+    this.saveSystem.load();
 
     // Iniciar bucle
     requestAnimationFrame((t) => this.loop(t));
@@ -98,6 +111,12 @@ class Game {
     this.upgradeManager.update(dt, this.player);
     this.employeeManager.update(dt);
 
+    // 6. Actualizar Nuevos Ingredientes, Eventos y Guardado (Fase 4)
+    this.tomatoPatch.update(dt, this.player);
+    this.cheeseStation.update(dt, this.player);
+    this.specialEvents.update(dt);
+    this.saveSystem.update(dt);
+
     // 6. Actualizar cámara suave centrada en el jugador
     this.camera.update(this.player.x, this.player.y);
 
@@ -119,8 +138,10 @@ class Game {
     // Capa 2: Zonas de Upgrade en el suelo
     this.upgradeManager.render(this.ctx);
 
-    // Capa 3: Estaciones de producción
+    // Capa 3: Estaciones de producción e ingredientes
     this.wheatField.render(this.ctx, this.gameTime);
+    this.tomatoPatch.render(this.ctx);
+    this.cheeseStation.render(this.ctx);
     this.mill.render(this.ctx);
     this.oven.render(this.ctx);
 
@@ -136,6 +157,9 @@ class Game {
     // Capa 7: Jugador con su pila en la espalda
     this.player.render(this.ctx);
 
+    // Capa 8: Efectos de Eventos Especiales (Confeti y Modo Turbo)
+    this.specialEvents.render(this.ctx);
+
     this.ctx.restore();
   }
 
@@ -144,18 +168,24 @@ class Game {
     const wheatCount = this.player.countItem('wheat');
     const flourCount = this.player.countItem('flour');
     const pizzaCount = this.player.countItem('pizza');
+    const tomatoCount = this.player.countItem('tomato');
+    const cheeseCount = this.player.countItem('cheese');
     const totalStack = this.player.stack.length;
     const maxCapacity = this.player.maxCapacity;
 
     const wheatEl = document.getElementById('hud-wheat');
     const flourEl = document.getElementById('hud-flour');
     const pizzaEl = document.getElementById('hud-pizza');
+    const tomatoEl = document.getElementById('hud-tomato');
+    const cheeseEl = document.getElementById('hud-cheese');
     const capacityEl = document.getElementById('hud-capacity');
     const moneyEl = document.getElementById('hud-money');
 
     if (wheatEl) wheatEl.textContent = wheatCount;
     if (flourEl) flourEl.textContent = flourCount;
     if (pizzaEl) pizzaEl.textContent = pizzaCount;
+    if (tomatoEl) tomatoEl.textContent = tomatoCount;
+    if (cheeseEl) cheeseEl.textContent = cheeseCount;
     if (capacityEl) {
       capacityEl.textContent = `${totalStack}/${maxCapacity}`;
       capacityEl.style.color = totalStack >= maxCapacity ? '#ef4444' : '#ffffff';

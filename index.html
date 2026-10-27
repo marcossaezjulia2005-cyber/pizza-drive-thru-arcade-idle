@@ -16,7 +16,7 @@
     <!-- UI Overlay HUD -->
     <div id="ui-overlay">
       <!-- Barra superior de recursos y estado -->
-      <div class="flex items-center justify-between w-full max-w-5xl mx-auto interactive-ui">
+      <div class="flex items-center justify-between w-full max-w-6xl mx-auto interactive-ui flex-wrap gap-2">
         
         <!-- Dinero acumulado -->
         <div class="glass-panel px-5 py-2.5 flex items-center gap-3">
@@ -28,7 +28,7 @@
         </div>
 
         <!-- Inventario en la Espalda -->
-        <div class="glass-panel px-5 py-2.5 flex items-center gap-4">
+        <div class="glass-panel px-5 py-2.5 flex items-center gap-3">
           <div class="flex items-center gap-2">
             <span class="text-xl">🎒</span>
             <div class="flex flex-col">
@@ -56,12 +56,35 @@
             <span class="text-lg">🍕</span>
             <span id="hud-pizza" class="font-bold text-orange-400">0</span>
           </div>
+
+          <!-- Tomates en mochila -->
+          <div class="flex items-center gap-1.5" title="Tomates">
+            <span class="text-lg">🍅</span>
+            <span id="hud-tomato" class="font-bold text-red-400">0</span>
+          </div>
+
+          <!-- Queso en mochila -->
+          <div class="flex items-center gap-1.5" title="Queso">
+            <span class="text-lg">🧀</span>
+            <span id="hud-cheese" class="font-bold text-yellow-300">0</span>
+          </div>
         </div>
 
-        <!-- Botones de Utilidad -->
-        <div class="flex items-center gap-2">
+        <!-- Botones de Utilidad y Modo Turbo -->
+        <div class="flex items-center gap-2.5">
+          <!-- Botón Modo Turbo -->
+          <button id="turbo-btn" class="glass-panel px-4 py-2 flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:brightness-110 active:scale-95 transition cursor-pointer shadow-lg shadow-orange-500/30 border-orange-400" title="Doble velocidad de todo durante 10 segundos">
+            <span id="turbo-timer-label" class="font-bold text-sm tracking-wide text-white drop-shadow">🔥 ¡TURBO!</span>
+          </button>
+
+          <!-- Silenciar audio -->
           <button id="mute-btn" class="glass-panel w-11 h-11 flex items-center justify-center text-xl hover:bg-slate-700 transition" title="Activar/Silenciar Sonido">
             🔊
+          </button>
+
+          <!-- Reiniciar partida -->
+          <button id="reset-btn" class="glass-panel w-11 h-11 flex items-center justify-center text-base text-slate-400 hover:text-red-400 hover:bg-slate-700 transition" title="Reiniciar partida">
+            🔄
           </button>
         </div>
       </div>
@@ -71,7 +94,7 @@
         <div class="glass-panel px-4 py-2 text-xs text-slate-300 flex items-center gap-3 pointer-events-none opacity-90">
           <span>⌨️ <b>WASD</b> o <b>Flechas</b> para moverte</span>
           <span>•</span>
-          <span>🌾 Trigo ➔ 🥡 Harina ➔ 🍕 Horno ➔ 🚗 Sirve en ventanilla</span>
+          <span>🌾 Trigo ➔ 🥡 Harina ➔ 🍅 Tomate ➔ 🧀 Queso ➔ 🍕 Horno ➔ 🚗 Drive-Thru</span>
         </div>
       </div>
     </div>
@@ -92,8 +115,10 @@
   <script src="js/entities/MoneyPickup.js"></script>
   <script src="js/entities/DriveThru.js"></script>
   <script src="js/entities/Employees.js"></script>
+  <script src="js/entities/NewIngredients.js"></script>
   <script src="js/systems/Upgrades.js"></script>
+  <script src="js/systems/SpecialEvents.js"></script>
+  <script src="js/systems/SaveSystem.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
-

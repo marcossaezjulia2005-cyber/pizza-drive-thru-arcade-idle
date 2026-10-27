@@ -31,9 +31,9 @@ class Player {
     return this.stack.length < this.maxCapacity;
   }
 
-  addItem(type) {
+  addItem(type, value = 5) {
     if (this.canPickItem()) {
-      this.stack.push({ type });
+      this.stack.push({ type, value });
       if (window.audio) window.audio.playPickup(1 + this.stack.length * 0.1);
       return true;
     }
