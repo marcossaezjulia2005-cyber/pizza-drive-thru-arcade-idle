@@ -1,7 +1,7 @@
 # 📋 Backlog del Proyecto: Pizza Drive-Thru Arcade Idle
 
 > **Estado general del proyecto**: En desarrollo 🚀  
-> **Fases completadas**: **Fase 1 (MVT Core Loop)** y **Fase 2 (Drive-Thru, Clientes y Ventas)** ✅  
+> **Fases completadas**: **Fase 1**, **Fase 2** y **Fase 3 (Upgrades y Automatización)** ✅  
 > **Última actualización**: 2026-10-27
 
 ---
@@ -12,8 +12,8 @@
 | :--- | :--- | :--- |
 | **Fase 1** | MVT Core Loop (Entorno, Movimiento, Pila, Trigo, Molino, Horno) | 🟢 **Completada** |
 | **Fase 2** | Drive-Thru, Clientes, Pedidos y Sistema de Dinero | 🟢 **Completada** |
-| **Fase 3** | Árbol de Upgrades y Automatización (Granjero, Cocinero, Cajera) | 🟡 **Siguiente en cola** |
-| **Fase 4** | Recetas (Tomate/Queso), Eventos Especiales, Audio y Persistencia | ⚪ Pendiente |
+| **Fase 3** | Árbol de Upgrades y Automatización (Granjero, Cocinero, Cajera) | 🟢 **Completada** |
+| **Fase 4** | Recetas (Tomate/Queso), Eventos Especiales, Audio y Persistencia | 🟡 **Siguiente en cola** |
 
 ---
 
@@ -21,65 +21,56 @@
 
 ### 🟢 FASE 1: MVT Core Loop (Movimiento y Cadena Productiva) — COMPLETADA ✅
 - [x] **1.1 Infraestructura Base y Setup Web**:
-  - [x] Crear estructura de archivos (`index.html`, `css/styles.css`, scripts en `js/`).
-  - [x] Configurar Canvas con soporte de alta densidad (Retina/DPI) y redimensionamiento responsivo.
-  - [x] Implementar `GameLoop` con cálculo preciso de `deltaTime`.
+  - [x] Canvas responsivo con soporte Retina/DPI y redimensionamiento dinámico.
+  - [x] `GameLoop` desacoplado con cálculo de `deltaTime`.
 - [x] **1.2 Entrada y Control**:
-  - [x] `InputManager`: Captura de teclado (WASD / Flechas) y normalización en 8 direcciones.
-  - [x] Joystick virtual flotante para dispositivos táctiles y móviles.
+  - [x] `InputManager` para teclado (WASD / Flechas) y joystick virtual para móviles.
 - [x] **1.3 Jugador y Sistema de Inventario Pila**:
-  - [x] Renderizado procedural del avatar (cuerpo, gorro de chef, orientación visual).
-  - [x] Movimiento fluido con velocidad base (150 px/s) y colisiones AABB con el mapa.
-  - [x] `InventoryStack`: Pila física en la espalda con capacidad máxima (5 slots base) y animación elástica.
+  - [x] Avatar procedural con gorro de chef y animación de pasos.
+  - [x] Movimiento fluido (150 px/s base) con colisiones AABB contra obstáculos y mapa.
+  - [x] Pila física en la espalda con capacidad máxima base (5 unidades) y bamboleo elástico.
 - [x] **1.4 Escenario y Mapa**:
-  - [x] Dibujo de zonas: parcela de cultivo de trigo, molino de harina, cocina con horno de leña, carril Drive-Thru asfaltado.
-  - [x] Sistema de cámara 2D con seguimiento suave (lerp) del jugador.
+  - [x] Huerto de trigo, molino con aspas, cocina con horno de piedra y carril asfaltado.
+  - [x] Cámara 2D con seguimiento suave (lerp).
 - [x] **1.5 Cadena de Producción (Trigo → Harina → Horno)**:
-  - [x] **Campo de Trigo**: Tallos animados, siega automática por cercanía (guadaña con animación y sonido), cooldown de 3.0s y partículas.
-  - [x] **Molino de Harina**: Aspas giratorias continuas, tolva de entrada (trigo), proceso de 1.5s y tolva de salida (sacos de harina).
-  - [x] **Horno de Leña**: Hoguera con partículas de humo/chispas, entrada de harina, horneado (2.0s por pizza, máx. 10) y bandeja de salida.
-  - [x] **Sintetizador Web Audio API**: Efectos de corte, recogida en espalda, descarga y aviso de horneado listo.
+  - [x] **Campo de Trigo**: Cosecha automática con guadaña, cooldown de 3.0s y partículas.
+  - [x] **Molino**: Aspas giratorias, tolva de entrada (trigo), proceso de 1.5s y tolva de salida (harina).
+  - [x] **Horno**: Hoguera, partículas de humo/chispas, cocción (2.0s por pizza, máx. 10) y bandeja de salida.
+  - [x] **Audio**: Sintetizador Web Audio API procedural.
 
 ---
 
 ### 🟢 FASE 2: Drive-Thru, Pedidos y Dinero — COMPLETADA ✅
 - [x] **2.1 Spawner y Cola de Vehículos**:
-  - [x] Spawner con hasta 3 coches en cola en el carril de asfalto.
-  - [x] Diseños procedurales con variedad de colores (deportivo rojo, azul eléctrico, verde, amarillo, etc.), lunas, techo y luces.
-  - [x] Movimiento y detención fluida en cada posición de la fila.
+  - [x] Hasta 3 coches simultáneos en el carril con detención en cola y diseños variados.
 - [x] **2.2 Sistema de Pedidos (Comandas)**:
-  - [x] Bocadillo flotante interactivo sobre el coche en ventanilla con icono 🍕 y progreso `entregadas/solicitadas` (1 a 5 pizzas).
+  - [x] Bocadillo flotante sobre el vehículo con icono 🍕 y conteo (1 a 5 pizzas).
 - [x] **2.3 Ventanilla de Entrega**:
-  - [x] Zona de servicio en la ventanilla de la cocina (`x: 940, y: 440`).
-  - [x] Transferencia secuencial rápida de pizzas desde la espalda del jugador hacia el vehículo.
+  - [x] Zona de servicio en la ventanilla (`🍕 Entrega Ventanilla`).
+  - [x] Entrega secuencial rápida de pizzas desde la espalda del jugador.
 - [x] **2.4 Sistema Económico y Recolección de Dinero**:
-  - [x] Al completar la entrega, el coche toca la bocina (`playHorn`) y acelera hacia la salida.
-  - [x] Desove de fajos de billetes verdes ($5 por pizza) en la repisa de la ventanilla.
-  - [x] Recolección magnética al acercarse con sonido de caja registradora (`playMoney`).
-  - [x] Textos flotantes ascendentes `+$X` con sombreado y desvanecimiento.
-  - [x] Actualización en vivo del saldo en la caja del HUD.
+  - [x] Suelta de billetes verdes ($5/pizza) en la repisa de la ventanilla con claxon del coche.
+  - [x] Absorción magnética de billetes al aproximarse con sonido de caja registradora.
+  - [x] Textos flotantes ascendentes `+$X` y saldo actualizado en el HUD.
 
 ---
 
-### ⚪ FASE 3: Upgrades y Empleados Automatizados (Próximo paso)
-- [ ] **3.1 Círculos de Mejora Interactivos**:
-  - [ ] Zonas de compra circulares en el suelo con llenado gradual de dinero al pisarlas.
-  - [ ] Fórmula de costes escalonados ($C_n = C_0 \times 1.15^n$).
-- [ ] **3.2 Árbol de Mejoras del Jugador**:
-  - [ ] Velocidad de movimiento (+20% por nivel).
-  - [ ] Capacidad de carga (+3 slots por nivel).
-  - [ ] Eficiencia de guadaña.
-- [ ] **3.3 Automatización y Empleados (FSM)**:
-  - [ ] 👨‍🌾 **Granjero Bot**: Siega trigo y abastece la tolva del molino.
-  - [ ] 👨‍🍳 **Cocinero**: Traslada harina del molino al horno y acelera la cocción.
-  - [ ] 👩‍💼 **Cajera**: Toma pizzas del mostrador, entrega a los coches y recoge dinero del suelo.
-- [ ] **3.4 Mejoras de Instalaciones**:
-  - [ ] Mejora de capacidad y velocidad del horno (Niveles 2 y 3).
-  - [ ] Apertura del **segundo carril Drive-Thru**.
+### 🟢 FASE 3: Upgrades y Empleados Automatizados — COMPLETADA ✅
+- [x] **3.1 Círculos de Mejora Interactivos en Suelo**:
+  - [x] Círculos dorados luminosos con vertido progresivo de dinero al pisarlos.
+  - [x] Fórmula de costes escalonados ($C_n = C_0 \times 1.15^n$) y barra radial de progreso de compra.
+- [x] **3.2 Árbol de Mejoras del Jugador**:
+  - [x] ⚡ **Velocidad de Movimiento**: +20% por nivel acumulativo.
+  - [x] 🎒 **Capacidad de Carga**: +3 slots adicionales por nivel en la mochila.
+  - [x] 🔥 **Horno Rápido**: -25% de tiempo de cocción por nivel.
+- [x] **3.3 Automatización y Empleados (IA con FSM)**:
+  - [x] 👨‍🌾 **Granjero Bot**: Sombrero de paja y peto, siega trigo crecido y abastece la entrada del molino.
+  - [x] 👨‍🍳 **Cocinero**: Delantal y gorro chef, traslada sacos de harina del molino al horno continuamente.
+  - [x] 👩‍💼 **Cajera**: Uniforme con visera, toma pizzas del horno, las sirve en la ventanilla del Drive-Thru y recoge el dinero del suelo.
 
 ---
 
-### ⚪ FASE 4: Recetas, Eventos Especiales, Audio y Guardado
+### ⚪ FASE 4: Recetas, Eventos Especiales, Audio y Guardado (Próximo paso)
 - [ ] **4.1 Nuevos Ingredientes y Recetas**:
   - [ ] Huerto de Tomates $\rightarrow$ Pizza Margarita ($12).
   - [ ] Establo de Vacas / Quesería $\rightarrow$ Pizza 4 Quesos ($25).

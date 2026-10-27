@@ -27,6 +27,12 @@ class Game {
     // Sistema de dinero y textos flotantes
     this.moneyManager = new MoneyManager(this);
 
+    // Sistema de Empleados Automatizados (FSM)
+    this.employeeManager = new EmployeeManager(this);
+
+    // Sistema de Upgrades y zonas de compra en suelo
+    this.upgradeManager = new UpgradeManager(this);
+
     // Sistema de Drive-Thru y coches
     this.driveThru = new DriveThruSystem(this);
 
@@ -88,10 +94,14 @@ class Game {
     this.driveThru.update(dt, this.player, this.moneyManager);
     this.moneyManager.update(dt, this.player);
 
-    // 5. Actualizar cámara suave centrada en el jugador
+    // 5. Actualizar Zonas de Mejora y Empleados Automatizados
+    this.upgradeManager.update(dt, this.player);
+    this.employeeManager.update(dt);
+
+    // 6. Actualizar cámara suave centrada en el jugador
     this.camera.update(this.player.x, this.player.y);
 
-    // 6. Actualizar HUD en pantalla
+    // 7. Actualizar HUD en pantalla
     this.updateHUD();
   }
 
@@ -106,18 +116,24 @@ class Game {
     // Capa 1: Mapa (Suelo, cocina, asfalto, muros)
     this.map.render(this.ctx);
 
-    // Capa 2: Estaciones de producción
+    // Capa 2: Zonas de Upgrade en el suelo
+    this.upgradeManager.render(this.ctx);
+
+    // Capa 3: Estaciones de producción
     this.wheatField.render(this.ctx, this.gameTime);
     this.mill.render(this.ctx);
     this.oven.render(this.ctx);
 
-    // Capa 3: Vehículos y carril Drive-Thru
+    // Capa 4: Vehículos y carril Drive-Thru
     this.driveThru.render(this.ctx);
 
-    // Capa 4: Fajos de dinero y textos flotantes
+    // Capa 5: Fajos de dinero y textos flotantes
     this.moneyManager.render(this.ctx);
 
-    // Capa 5: Jugador con su pila en la espalda
+    // Capa 6: Empleados automatizados
+    this.employeeManager.render(this.ctx);
+
+    // Capa 7: Jugador con su pila en la espalda
     this.player.render(this.ctx);
 
     this.ctx.restore();
